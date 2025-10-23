@@ -452,7 +452,8 @@ def handle_stats(message: Message):
             zipf.writestr('dataset.json', json.dumps(dataset, ensure_ascii=False, indent=2))
 
         zip_buffer.seek(0)
-        bot.send_document(message.chat.id, zip_buffer, file_name=f"{wallet[:6]}_stats.zip")
+        # CORRECTION ICI : 'file_name' -> 'filename' (sans underscore)
+        bot.send_document(message.chat.id, zip_buffer, filename=f"{wallet[:6]}_stats.zip")
     except Exception as e:
         bot.reply_to(message, f"Error analyzing wallet: {str(e)}")
 
