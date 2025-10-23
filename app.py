@@ -453,11 +453,11 @@ def handle_stats(message: Message):
 
         zip_buffer.seek(0)
         # Compatible avec toutes les versions de pyTelegramBotAPI
+        # Méthode compatible avec pyTelegramBotAPI >= 4.0
         bot.send_document(
             chat_id=message.chat.id,
-            document=zip_buffer,
-            filename=f"{wallet[:6]}_stats.zip",
-            caption=f"Analysis for wallet {wallet[:6]}..."
+            document=('stats.zip', zip_buffer, 'application/zip'),
+            caption=f"Analysis complete for {wallet[:6]}..."
         )
     except Exception as e:
         bot.reply_to(message, f"Error analyzing wallet: {str(e)}")
