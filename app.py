@@ -392,7 +392,7 @@ def compute_dataset(wallet: str, swaps: List[SwapRecord], enhanced: List[Dict[st
 
 # ------------------- Main analysis -------------------
 
-def analyze(wallet: str, api_key: str, limit: int = 100, pages: int = 5, from_file: Optional[str] = None) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+def analyze(wallet: str, api_key: str, limit: int = 100, pages: int = 15, from_file: Optional[str] = None) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     if from_file:
         enhanced = load_enhanced_from_file(from_file)
     else:
@@ -460,6 +460,8 @@ def handle_stats(message: Message):
             document=(statsfile, zip_buffer, 'application/zip'),
             caption=f"Analysis complete for {wallet[:6]}..."
         )
+        
+        bot.reply_to(message, f"{dataset}")
     except Exception as e:
         bot.reply_to(message, f"Error analyzing wallet: {str(e)}")
 
