@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: wallet-analyzer
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      TELEGRAM_TOKEN:
+      HELIUS_API_KEY:
+      WEBHOOK_URL:
