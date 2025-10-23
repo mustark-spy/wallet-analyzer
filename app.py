@@ -452,8 +452,13 @@ def handle_stats(message: Message):
             zipf.writestr('dataset.json', json.dumps(dataset, ensure_ascii=False, indent=2))
 
         zip_buffer.seek(0)
-        # CORRECTION ICI : 'file_name' -> 'filename' (sans underscore)
-        bot.send_document(message.chat.id, zip_buffer, filename=f"{wallet[:6]}_stats.zip")
+        # Compatible avec toutes les versions de pyTelegramBotAPI
+        bot.send_document(
+            chat_id=message.chat.id,
+            document=zip_buffer,
+            filename=f"{wallet[:6]}_stats.zip",
+            caption=f"Analysis for wallet {wallet[:6]}..."
+        )
     except Exception as e:
         bot.reply_to(message, f"Error analyzing wallet: {str(e)}")
 
